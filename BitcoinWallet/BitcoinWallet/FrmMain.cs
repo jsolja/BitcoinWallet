@@ -13,6 +13,7 @@ namespace BitcoinWallet
 {
     public partial class FrmMain : Form
     {
+        Mnemonic Seed { get; set; } = null;
         public FrmMain()
         {
             InitializeComponent();
@@ -26,12 +27,11 @@ namespace BitcoinWallet
             // ExtKey masterkey = ExtKey.Parse(outputSeed.Text);
             // outputKeys.Text += "Child: " + masterkey.Derive(0).ToString(Network.Main) + Environment.NewLine;
 
-
-
             //Creates twelve word mnemonic (seed)
-            Mnemonic seed = new Mnemonic(Wordlist.English, WordCount.Twelve);
-            outputSeed.Text = seed.ToString();
+            Seed = new Mnemonic(Wordlist.English, WordCount.Twelve);
+            outputSeed.Text = Seed.ToString();
 
+            /* 
             //Creates master private key
             ExtKey masterKey = new ExtKey();
             masterKey = seed.DeriveExtKey();
@@ -50,7 +50,26 @@ namespace BitcoinWallet
                 outputKeys.Text += "Public key " + i + ": " + childPubKey.ToString(Network.Main) + Environment.NewLine;
                 outputKeys.Text += "Address " + i + ": " + childPubKey.PubKey.GetAddress(Network.Main) + Environment.NewLine + Environment.NewLine;
             }
-            
+            */
+
+        }
+
+        private void inputSaveToFile_Click(object sender, EventArgs e)
+        {
+            if(Seed != null)
+            {
+                var file = new OpenFileDialog();
+                if(file.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = file.FileName;
+                    System.IO.File.WriteAllText(filePath, Seed.ToString());
+                    MessageBox.Show("Seed saved successfully!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERROR: Generate a seed first.");
+            }
         }
     }
 }
