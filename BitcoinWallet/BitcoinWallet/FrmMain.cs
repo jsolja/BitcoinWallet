@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 using NBitcoin;
 
@@ -58,13 +59,18 @@ namespace BitcoinWallet
         {
             if(Seed != null)
             {
-                var file = new OpenFileDialog();
-                if(file.ShowDialog() == DialogResult.OK)
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = ".dat|*.dat";
+                sfd.Title = "wallet";
+                sfd.ShowDialog();
+                if(sfd.FileName != "")
                 {
-                    string filePath = file.FileName;
-                    System.IO.File.WriteAllText(filePath, Seed.ToString());
-                    MessageBox.Show("Seed saved successfully!");
+                    FileStream fs = (System.IO.FileStream)sfd.OpenFile();
+                    byte[] data = new UTF8Encoding(true).GetBytes(Seed.ToString());
+                    fs.Write(data, 0, data.Length);
+                    fs.Close();
                 }
+                
             }
             else
             {

@@ -33,6 +33,7 @@
             this.inputGenerate = new System.Windows.Forms.Button();
             this.inputSaveToFile = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -99,6 +100,7 @@
         private System.Windows.Forms.Button inputGenerate;
         private System.Windows.Forms.Button inputSaveToFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 
