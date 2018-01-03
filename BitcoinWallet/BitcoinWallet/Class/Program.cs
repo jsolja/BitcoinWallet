@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BitcoinWallet.Forms;
 
 namespace BitcoinWallet
 {
@@ -16,7 +17,7 @@ namespace BitcoinWallet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+            Application.Run(new FormMain());
         }
     }
 }
