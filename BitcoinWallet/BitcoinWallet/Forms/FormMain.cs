@@ -79,7 +79,21 @@ namespace BitcoinWallet.Forms
         {
             if(outputPanel.Controls.Contains(ucChooseYourWallet))
             {
-                LoadUserControlKeystore();
+                if(ucChooseYourWallet.Availability)
+                {
+                    LoadUserControlKeystore();
+                }
+                else
+                {
+                    if(ucChooseYourWallet.Encrypted)
+                    {
+                        LoadEncryptedWallet();
+                    }
+                    else
+                    {
+                        LoadUnecryptedWallet();
+                    }
+                }
             }
             else if(outputPanel.Controls.Contains(ucKeystore))
             {
@@ -105,8 +119,14 @@ namespace BitcoinWallet.Forms
             {
                 if(ucWalletEncryption.GetPassword == ucWalletEncryption.GetConfirmPassword)
                 {
-                    FinishCreatingFile();
-                    LoadFormWallet();
+                    if(string.IsNullOrWhiteSpace(ucWalletEncryption.GetPassword))
+                    {
+                        FinishCreatingFile("unecrypted", ucChooseYourWallet.FilePath);
+                    }
+                    else
+                    {
+                        FinishCreatingFile("ecrypted", ucChooseYourWallet.FilePath);
+                    }
                 }
                 else
                 {
@@ -139,10 +159,47 @@ namespace BitcoinWallet.Forms
             }
         }
 
-        private void FinishCreatingFile()
+        private void FinishCreatingFile(string encryption, string path)
         {
-            File f = new File();
-            f.SaveUnecryptedFile(outputSeed);
+            MyFile f = new MyFile();
+            if(encryption == "unecrypted")
+            {
+                f.SaveUnecryptedFile(outputSeed, path);
+            }
+            else
+            {
+                f.SaveEncryptedFile(outputSeed, ucWalletEncryption.GetPassword, path);
+            }
+            LoadFormWallet();
+        }
+
+        private void LoadEncryptedWallet()
+        {
+            if (string.IsNullOrWhiteSpace(ucChooseYourWallet.Password))
+            {
+                MessageBox.Show("Incorrect password.", "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Aes aes = new Aes();
+                MyFile f = new MyFile();
+                try
+                {
+                    MessageBox.Show(aes.Decrypt(f.ReadFile(ucChooseYourWallet.FilePath), ucChooseYourWallet.Password));
+                    LoadFormWallet();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Incorrect password.", "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LoadUnecryptedWallet()
+        {
+            MyFile f = new MyFile();
+            MessageBox.Show(f.ReadFile(ucChooseYourWallet.FilePath));
+            LoadFormWallet();
         }
     }
 }

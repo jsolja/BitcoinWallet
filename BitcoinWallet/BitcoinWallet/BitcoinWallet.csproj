@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Aes.cs" />
-    <Compile Include="Class\File.cs" />
+    <Compile Include="Class\MyFile.cs" />
     <Compile Include="Forms\FormWallet.cs">
       <SubType>Form</SubType>
     </Compile>

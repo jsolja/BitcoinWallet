@@ -78,6 +78,7 @@
             this.inputPassword.Name = "inputPassword";
             this.inputPassword.Size = new System.Drawing.Size(243, 20);
             this.inputPassword.TabIndex = 4;
+            this.inputPassword.UseSystemPasswordChar = true;
             // 
             // inputConfirmPassword
             // 
@@ -85,6 +86,7 @@
             this.inputConfirmPassword.Name = "inputConfirmPassword";
             this.inputConfirmPassword.Size = new System.Drawing.Size(243, 20);
             this.inputConfirmPassword.TabIndex = 5;
+            this.inputConfirmPassword.UseSystemPasswordChar = true;
             // 
             // UserControlWalletEncryption
             // 
