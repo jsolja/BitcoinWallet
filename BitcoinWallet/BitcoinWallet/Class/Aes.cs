@@ -13,84 +13,85 @@ namespace BitcoinWallet.Class
     /// </summary>
     public class Aes
     {
-        private String File { get; set; }
-        private String Secret { get; set; }
+        private const int KeySize = 256;
+        private const int DerivationIterations = 1000;
 
-        public Aes(string file, string password)
+        private static byte[] Generate256BitsOfRandomEntropy()
         {
-            File = file;
-            Secret = password;
-        }
-
-        private static byte[] GenerateSalt()
-        {
-            byte[] salt = new byte[32];
-            RNGCryptoServiceProvider rngcsp = new RNGCryptoServiceProvider();
-            for(int i = 0; i < 10; i++)
+            byte[] randomBytes = new byte[32];
+            using (var rngcsp = new RNGCryptoServiceProvider())
             {
-                rngcsp.GetBytes(salt);
+                rngcsp.GetBytes(randomBytes);
             }
-            return salt;
+            return randomBytes;
         }
 
-        public void Encrypt()
+        public string Encrypt(string seed, string password)
         {
-            var pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            var fullPath = Path.Combine(pathToDesktop, "wallet.dat");
+            byte[] saltBytes = Generate256BitsOfRandomEntropy();
+            byte[] ivBytes = Generate256BitsOfRandomEntropy();
+            byte[] seedByte = Encoding.UTF8.GetBytes(seed);
 
-            byte[] salt = GenerateSalt();
-            byte[] passwordByte = Encoding.UTF8.GetBytes(Secret);
-            var key = new Rfc2898DeriveBytes(passwordByte, salt, 50000);
-
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.KeySize = 256;
-            aes.BlockSize = 128;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.Key = key.GetBytes(aes.KeySize / 8);
-            aes.IV = key.GetBytes(aes.BlockSize / 8);
-            aes.Mode = CipherMode.CBC;
-
-            FileStream fsEncrypt = new FileStream(fullPath, FileMode.Create);
-            fsEncrypt.Write(salt, 0, salt.Length);
-            CryptoStream cs = new CryptoStream(fsEncrypt, aes.CreateEncryptor(), CryptoStreamMode.Write);
-
-            FileStream fs = new FileStream(File, FileMode.Open);
-            byte[] buffer = new byte[1048576];
-            int read;
-
-            while((read = fs.Read(buffer, 0,  buffer.Length)) > 0)
+            using (var key = new Rfc2898DeriveBytes(password, saltBytes, DerivationIterations))
             {
-                cs.Write(buffer, 0, read);
+                var keyBytes = key.GetBytes(KeySize / 8);
+                using (var symmetricKey = new RijndaelManaged())
+                {
+                    symmetricKey.BlockSize = 256;
+                    symmetricKey.Mode = CipherMode.CBC;
+                    symmetricKey.Padding = PaddingMode.PKCS7;
+                    using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivBytes))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                            {
+                                cryptoStream.Write(seedByte, 0, seedByte.Length);
+                                cryptoStream.FlushFinalBlock();
+                                var cipherBytes = saltBytes;
+                                cipherBytes = cipherBytes.Concat(ivBytes).ToArray();
+                                cipherBytes = cipherBytes.Concat(memoryStream.ToArray()).ToArray();
+                                memoryStream.Close();
+                                cryptoStream.Close();
+                                return Convert.ToBase64String(cipherBytes);
+                            }
+                        }
+                    }
+                }
             }
-
-            cs.Close();
-            fs.Close();
-            fsEncrypt.Close();
         }
 
-        public string Decrypt()
+        public string Decrypt(string cipher, string password)
         {
-            byte[] passwordByte = Encoding.UTF8.GetBytes(Secret);
-            byte[] salt = new byte[32];
+            byte[] cipherSaltIv = Convert.FromBase64String(cipher);
+            byte[] saltBytes = cipherSaltIv.Take(KeySize / 8).ToArray();
+            byte[] ivBytes = cipherSaltIv.Skip(KeySize / 8).Take(KeySize / 8).ToArray();
+            byte[] cipherBytes = cipherSaltIv.Skip((KeySize / 8) * 2).Take(cipherSaltIv.Length - ((KeySize / 8) * 2)).ToArray();
 
-            FileStream fsDecrypt = new FileStream(File, FileMode.Open);
-            fsDecrypt.Read(salt, 0, salt.Length);
-
-            var key = new Rfc2898DeriveBytes(passwordByte, salt, 50000);
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.KeySize = 256;
-            aes.BlockSize = 128;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.Key = key.GetBytes(aes.KeySize / 8);
-            aes.IV = key.GetBytes(aes.BlockSize / 8);
-            aes.Mode = CipherMode.CBC;
-
-            CryptoStream cs = new CryptoStream(fsDecrypt, aes.CreateDecryptor(), CryptoStreamMode.Read);
-
-            byte[] buffer = new byte[1048576];
-            cs.Read(buffer, 0, buffer.Length);
-
-            return Encoding.UTF8.GetString(buffer);
+            using (var key = new Rfc2898DeriveBytes(password, saltBytes, DerivationIterations))
+            {
+                var keyBytes = key.GetBytes(KeySize / 8);
+                using (var symmetricKey = new RijndaelManaged())
+                {
+                    symmetricKey.BlockSize = 256;
+                    symmetricKey.Mode = CipherMode.CBC;
+                    symmetricKey.Padding = PaddingMode.PKCS7;
+                    using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivBytes))
+                    {
+                        using (var memoryStream = new MemoryStream(cipherBytes))
+                        {
+                            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                            {
+                                byte[] seedBytes = new byte[cipherBytes.Length];
+                                var decryptedByteCount = cryptoStream.Read(seedBytes, 0, seedBytes.Length);
+                                memoryStream.Close();
+                                cryptoStream.Close();
+                                return Encoding.UTF8.GetString(seedBytes, 0, decryptedByteCount);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -16,5 +16,10 @@ namespace BitcoinWallet.Forms
         {
             InitializeComponent();
         }
+
+        private void FormWallet_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

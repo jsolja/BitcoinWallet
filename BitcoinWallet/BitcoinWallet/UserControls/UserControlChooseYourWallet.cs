@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BitcoinWallet.Class;
+using System.IO;
 
 namespace BitcoinWallet.Class
 {
     public partial class UserControlChooseYourWallet : UserControl
     {
+        public bool Availability { get; set; }
+        public bool Encrypted { get; set; }
         public String FilePath
         {
             get
@@ -24,25 +26,65 @@ namespace BitcoinWallet.Class
                 inputChooseWalletText.Text = value;
             }
         }
+        public String Password
+        {
+            get
+            {
+                return inputPassword.Text;
+            }
+            set
+            {
+                inputPassword.Text = value;
+            }
+        }
 
         public UserControlChooseYourWallet()
         {
             InitializeComponent();
+            CheckName();
         }
-
+        private void CheckName()
+        {
+            MyFile f = new MyFile();
+            if(f.CheckWalletName(inputChooseWalletText.Text))
+            {
+                string contentOfWallet = f.ReadFile(inputChooseWalletText.Text);
+                string[] seed = contentOfWallet.Split(' ');
+                
+                if(seed.Length != 12)
+                {
+                    outputFileLabel.Text = "This file is encrypted.";
+                    outputLabelNext.Text = "Enter your password or choose another file.";
+                    outputLabelPassword.Visible = true;
+                    inputPassword.Visible = true;
+                    Encrypted = true;
+                }
+                else
+                {
+                    outputFileLabel.Text = "Press 'Next' to open this file.";
+                    outputLabelNext.Text = "";
+                    Encrypted = false;
+                }
+                Availability = false;
+            }
+            else
+            {
+                outputFileLabel.Text = "This file does not exist.";
+                outputLabelNext.Text = "Press 'Next' to create this wallet, or choose another file.";
+                outputLabelPassword.Visible = false;
+                inputPassword.Visible = false;
+                Availability = true;
+            }
+        }
         private void inputChooseWallet_Click(object sender, EventArgs e)
         {
-            File file = new File();
-            DisplayInformation(file.ReturnFilePath());
+            MyFile file = new MyFile();
+            inputChooseWalletText.Text = file.ReturnFilePath();
         }
 
-        /// <summary>
-        /// After choosing wallet, identify if the wallet is encrypted or not and display the information in the label. 
-        /// TODO.
-        /// </summary>
-        private void DisplayInformation(string filePath)
+        private void inputChooseWalletText_TextChanged(object sender, EventArgs e)
         {
-            inputChooseWalletText.Text = filePath;
+            CheckName();
         }
     }
 }
