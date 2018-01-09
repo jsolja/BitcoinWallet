@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using BitcoinWallet.UserControls;
 namespace BitcoinWallet.Forms
 {
     public partial class FormWallet : Form
@@ -20,6 +20,13 @@ namespace BitcoinWallet.Forms
         private void FormWallet_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void FormWallet_Shown(object sender, EventArgs e)
+        {
+            UserControlSend userControlSend = new UserControlSend();
+            userControlSend.Dock = DockStyle.Fill;
+            tabPage2.Controls.Add(userControlSend);
         }
     }
 }

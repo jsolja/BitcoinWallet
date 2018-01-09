@@ -47,8 +47,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NBitcoin, Version=4.0.0.38, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NBitcoin.4.0.0.38\lib\net461\NBitcoin.dll</HintPath>
+    <Reference Include="NBitcoin, Version=4.0.0.51, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NBitcoin.4.0.0.51\lib\net461\NBitcoin.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -126,6 +126,12 @@
     </Compile>
     <Compile Include="Class\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\UserControlSend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlSend.Designer.cs">
+      <DependentUpon>UserControlSend.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UserControlWalletEncryption.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,6 +160,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlSend.resx">
+      <DependentUpon>UserControlSend.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlWalletEncryption.resx">
       <DependentUpon>UserControlWalletEncryption.cs</DependentUpon>
