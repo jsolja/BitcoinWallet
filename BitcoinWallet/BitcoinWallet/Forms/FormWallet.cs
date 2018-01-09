@@ -27,6 +27,9 @@ namespace BitcoinWallet.Forms
             UserControlSend userControlSend = new UserControlSend();
             userControlSend.Dock = DockStyle.Fill;
             tabPage2.Controls.Add(userControlSend);
+            UserControlReceive userControlReceive = new UserControlReceive();
+            userControlReceive.Dock = DockStyle.Fill;
+            tabPage3.Controls.Add(userControlReceive);
         }
     }
 }
