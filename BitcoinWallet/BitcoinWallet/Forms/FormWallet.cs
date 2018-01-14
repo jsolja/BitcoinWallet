@@ -12,9 +12,12 @@ namespace BitcoinWallet.Forms
 {
     public partial class FormWallet : Form
     {
-        public FormWallet()
+        string password, path;
+        public FormWallet(string password, string path)
         {
             InitializeComponent();
+            this.password = password;
+            this.path = path;
         }
 
         private void FormWallet_FormClosed(object sender, FormClosedEventArgs e)
@@ -24,10 +27,10 @@ namespace BitcoinWallet.Forms
 
         private void FormWallet_Shown(object sender, EventArgs e)
         {
-            UserControlSend userControlSend = new UserControlSend();
+            UserControlSend userControlSend = new UserControlSend(password,path);
             userControlSend.Dock = DockStyle.Fill;
             tabPage2.Controls.Add(userControlSend);
-            UserControlReceive userControlReceive = new UserControlReceive();
+            UserControlReceive userControlReceive = new UserControlReceive(password, path);
             userControlReceive.Dock = DockStyle.Fill;
             tabPage3.Controls.Add(userControlReceive);
         }
