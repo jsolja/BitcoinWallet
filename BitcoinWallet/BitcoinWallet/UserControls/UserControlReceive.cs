@@ -46,7 +46,7 @@ namespace BitcoinWallet.UserControls
 
             bitcoinSecret = Wallet.generateDerivedAdress(extKey, walletDotDat.bitcoinSecrets.Count());
 
-            inputReceiving.Text = bitcoinSecret.PubKey.GetAddress(Network.TestNet).ToString();
+            inputReceiving.Text = bitcoinSecret.PubKey.GetAddress(Network.TestNet).ToString(); //
             generateQRCode();
         }
         public void generateQRCode()

@@ -70,9 +70,24 @@ namespace BitcoinWallet.Forms
         }
         private void LoadFormWallet()
         {
-            FormWallet formWallet = new FormWallet(ucChooseYourWallet.Password, ucChooseYourWallet.FilePath);
-            this.Hide();
-            formWallet.ShowDialog();
+            if(!string.IsNullOrWhiteSpace(ucChooseYourWallet.Password))
+            {
+                FormWallet formWallet = new FormWallet(ucChooseYourWallet.Password, ucChooseYourWallet.FilePath);
+                this.Hide();
+                formWallet.ShowDialog();
+            }
+            else if(!string.IsNullOrWhiteSpace(ucWalletEncryption.GetPassword))
+            {
+                FormWallet formWallet = new FormWallet(ucWalletEncryption.GetPassword, ucChooseYourWallet.FilePath);
+                this.Hide();
+                formWallet.ShowDialog();
+            }
+            else
+            {
+                FormWallet formWallet = new FormWallet("", ucChooseYourWallet.FilePath);
+                this.Hide();
+                formWallet.ShowDialog();
+            }
         }
 
         private void inputNext_Click(object sender, EventArgs e)
@@ -185,7 +200,7 @@ namespace BitcoinWallet.Forms
                 MyFile f = new MyFile();
                 try
                 {
-                    MessageBox.Show(aes.Decrypt(f.ReadFile(ucChooseYourWallet.FilePath), ucChooseYourWallet.Password));
+                    aes.Decrypt(f.ReadFile(ucChooseYourWallet.FilePath), ucChooseYourWallet.Password);
                     LoadFormWallet();
                 }
                 catch(Exception e)
@@ -199,7 +214,7 @@ namespace BitcoinWallet.Forms
         private void LoadUnecryptedWallet()
         {
             MyFile f = new MyFile();
-            MessageBox.Show(f.ReadFile(ucChooseYourWallet.FilePath));
+            //MessageBox.Show(f.ReadFile(ucChooseYourWallet.FilePath));
             LoadFormWallet();
         }
     }

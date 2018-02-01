@@ -108,9 +108,7 @@ namespace BitcoinWallet.Class
                     {
                         unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
                     }
-
                     walletBalance += unspentCoins.Sum(x => x.Amount.ToDecimal(MoneyUnit.BTC));
-
                 }
             }
             return walletBalance;
