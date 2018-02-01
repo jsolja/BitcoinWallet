@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NBitcoin;
+using QBitNinja.Client;
 
 namespace BitcoinWallet.Class
 {
@@ -60,6 +61,59 @@ namespace BitcoinWallet.Class
             {
                 return true;
             }
+        }
+        public static BitcoinSecret generateAdress()
+        {
+            return new Key().GetBitcoinSecret(Network.TestNet);
+        }
+        public static ExtKey generateMasterAdress(string seed = "")
+        {
+            Mnemonic Seed;
+            if (seed == "") Seed = new Mnemonic(Wordlist.English, WordCount.Twelve);
+            else Seed = new Mnemonic(seed, Wordlist.English);
+            ExtKey masterKey = new ExtKey();
+            masterKey = Seed.DeriveExtKey();
+
+            return masterKey.GetWif(Network.TestNet);
+        }
+        public static BitcoinSecret generateDerivedAdress(ExtKey masterKey, int i)
+        {
+            KeyPath keypth = new KeyPath("m/44'/0'/0'/0/" + i);
+            ExtKey childKey = masterKey.Derive(keypth);
+            return childKey.PrivateKey.GetBitcoinSecret(Network.TestNet);
+        }
+        public static bool checkAdress(string publicAdress)
+        {
+            try
+            {
+                BitcoinAddress publicKey = BitcoinAddress.Create(publicAdress);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static decimal GetWalletBalance(BitcoinSecret[] bitcoinSecrets, bool isUnspentOnly = true)
+        {
+            decimal walletBalance = 0;
+            QBitNinjaClient client = new QBitNinjaClient(Network.TestNet);
+            foreach (BitcoinSecret bs in bitcoinSecrets)
+            {
+                var balance = client.GetBalance(bs.GetAddress(), isUnspentOnly).Result;
+                if (balance.Operations.Count > 0)
+                {
+                    var unspentCoins = new List<Coin>();
+                    foreach (var operation in balance.Operations)
+                    {
+                        unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
+                    }
+
+                    walletBalance += unspentCoins.Sum(x => x.Amount.ToDecimal(MoneyUnit.BTC));
+
+                }
+            }
+            return walletBalance;
         }
     }
 }

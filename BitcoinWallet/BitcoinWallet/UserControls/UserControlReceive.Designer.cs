@@ -125,7 +125,7 @@
             // 
             // outputQRcode
             // 
-            this.outputQRcode.Location = new System.Drawing.Point(609, 14);
+            this.outputQRcode.Location = new System.Drawing.Point(392, 84);
             this.outputQRcode.Name = "outputQRcode";
             this.outputQRcode.Size = new System.Drawing.Size(190, 170);
             this.outputQRcode.TabIndex = 9;
@@ -146,7 +146,7 @@
             this.Controls.Add(this.descriptionLabel);
             this.Controls.Add(this.receivingAdressLabel);
             this.Name = "UserControlReceive";
-            this.Size = new System.Drawing.Size(932, 352);
+            this.Size = new System.Drawing.Size(610, 352);
             ((System.ComponentModel.ISupportInitialize)(this.outputQRcode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

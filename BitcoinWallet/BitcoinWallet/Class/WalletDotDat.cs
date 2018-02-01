@@ -8,11 +8,11 @@ namespace BitcoinWallet.Class
 {
     class WalletDotDat
     {
-        private List<BitcoinSecret> bitcoinSecrets = new List<BitcoinSecret>();
-        private string mnemonics;
+        public List<BitcoinSecret> bitcoinSecrets = new List<BitcoinSecret>();
+        public string mnemonics;
         public void FromString(string text)
         {
-            string[] contents = text.Split('\n');
+            string[] contents = text.Split(';');
             foreach(string content in contents)
             {
                 if (content.StartsWith("adresses"))
@@ -45,7 +45,7 @@ namespace BitcoinWallet.Class
         {
             string newContent="";
             newContent += "mnemonics:" + mnemonics;
-            newContent += Environment.NewLine;
+            newContent += ";";
             newContent += "adresses:";
             foreach(BitcoinSecret bitcoinSecret in bitcoinSecrets)
             {
@@ -57,4 +57,10 @@ namespace BitcoinWallet.Class
 
         }
     }
+    /*
+    class AdressesAndTransactions{
+        BitcoinSecret bitcoinSecret;
+
+    }
+    */
 }

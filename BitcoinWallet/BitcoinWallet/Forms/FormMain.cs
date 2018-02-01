@@ -188,9 +188,10 @@ namespace BitcoinWallet.Forms
                     MessageBox.Show(aes.Decrypt(f.ReadFile(ucChooseYourWallet.FilePath), ucChooseYourWallet.Password));
                     LoadFormWallet();
                 }
-                catch
+                catch(Exception e)
                 {
                     MessageBox.Show("Incorrect password.", "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(e.ToString());
                 }
             }
         }

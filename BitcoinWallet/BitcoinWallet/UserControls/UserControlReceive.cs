@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BitcoinWallet.Class;
+﻿using BitcoinWallet.Class;
 using NBitcoin;
-using ZXing;
+using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using ZXing;
 namespace BitcoinWallet.UserControls
 {
     public partial class UserControlReceive : UserControl
@@ -29,7 +23,29 @@ namespace BitcoinWallet.UserControls
 
         private void generateButton_Click(object sender, EventArgs e)
         {
-            bitcoinSecret = Bitcoin.generateAdress();
+            MyFile myFile = new MyFile();
+            WalletDotDat walletDotDat = new WalletDotDat();
+            string text = myFile.ReadFile(path);
+            string[] splitted = text.Split(' ');
+            string seed;
+            int i;
+            if (splitted.Length != 12)
+            {
+                Aes aes = new Aes();
+                walletDotDat.FromString(aes.Decrypt(text, password));
+                seed = walletDotDat.mnemonics;
+                i = walletDotDat.bitcoinSecrets.Count;
+            }
+            else
+            {
+                walletDotDat.FromString(myFile.ReadFile(path));
+                seed = walletDotDat.mnemonics;
+                i = walletDotDat.bitcoinSecrets.Count;
+            } 
+            ExtKey extKey = Wallet.generateMasterAdress(seed);
+
+            bitcoinSecret = Wallet.generateDerivedAdress(extKey, walletDotDat.bitcoinSecrets.Count());
+
             inputReceiving.Text = bitcoinSecret.PubKey.GetAddress(Network.TestNet).ToString();
             generateQRCode();
         }

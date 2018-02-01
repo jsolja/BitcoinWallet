@@ -53,6 +53,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QBitNinja.Client, Version=1.0.3.46, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QBitNinja.Client.1.0.3.46\lib\net461\QBitNinja.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -87,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Aes.cs" />
-    <Compile Include="Class\Bitcoin.cs" />
+    <Compile Include="Class\Transaction.cs" />
     <Compile Include="Class\MyFile.cs" />
     <Compile Include="Class\WalletDotDat.cs" />
     <Compile Include="Forms\FormWallet.cs">
@@ -100,6 +103,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlAdresses.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlAdresses.Designer.cs">
+      <DependentUpon>UserControlAdresses.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UserControlChooseYourWallet.cs">
       <SubType>UserControl</SubType>
@@ -154,6 +163,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\FormWallet.resx">
       <DependentUpon>FormWallet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlAdresses.resx">
+      <DependentUpon>UserControlAdresses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlChooseYourWallet.resx">
       <DependentUpon>UserControlChooseYourWallet.cs</DependentUpon>

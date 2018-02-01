@@ -81,6 +81,7 @@
             this.inputAllAvailable.TabIndex = 23;
             this.inputAllAvailable.Text = "All available";
             this.inputAllAvailable.UseVisualStyleBackColor = true;
+            this.inputAllAvailable.Click += new System.EventHandler(this.inputAllAvailable_Click);
             // 
             // mBTCLabel
             // 
