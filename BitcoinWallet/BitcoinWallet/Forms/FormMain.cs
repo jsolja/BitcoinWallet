@@ -70,7 +70,7 @@ namespace BitcoinWallet.Forms
         }
         private void LoadFormWallet()
         {
-            FormWallet formWallet = new FormWallet();
+            FormWallet formWallet = new FormWallet(ucChooseYourWallet.Password, ucChooseYourWallet.FilePath);
             this.Hide();
             formWallet.ShowDialog();
         }
@@ -164,11 +164,11 @@ namespace BitcoinWallet.Forms
             MyFile f = new MyFile();
             if(encryption == "unecrypted")
             {
-                f.SaveUnecryptedFile(outputSeed, path);
+                f.SaveUnecryptedFile("mnemonics:"+outputSeed, path);
             }
             else
             {
-                f.SaveEncryptedFile(outputSeed, ucWalletEncryption.GetPassword, path);
+                f.SaveEncryptedFile("mnemonics:"+outputSeed, ucWalletEncryption.GetPassword, path);
             }
             LoadFormWallet();
         }
@@ -188,9 +188,10 @@ namespace BitcoinWallet.Forms
                     MessageBox.Show(aes.Decrypt(f.ReadFile(ucChooseYourWallet.FilePath), ucChooseYourWallet.Password));
                     LoadFormWallet();
                 }
-                catch (Exception)
+                catch(Exception e)
                 {
                     MessageBox.Show("Incorrect password.", "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(e.ToString());
                 }
             }
         }
