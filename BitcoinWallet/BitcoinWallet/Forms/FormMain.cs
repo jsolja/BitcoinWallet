@@ -223,6 +223,10 @@ namespace BitcoinWallet.Forms
             {
                 LoadUserControlChooseYourWallet();
             }
+            else if(outputPanel.Controls.Contains(ucRestore))
+            {
+                LoadUserControlChooseYourWallet();
+            }
             else if(outputPanel.Controls.Contains(ucSeedGeneration))
             {
                 LoadUserControlKeystore();

@@ -25,7 +25,7 @@ namespace BitcoinWallet.UserControls
             feeValid = decimal.TryParse(inputFee.Text, out fee);
 
             if (feeValid)fee= fee / 1000m;
-            MessageBox.Show(fee.ToString());
+            //MessageBox.Show(fee.ToString());
             if (feeValid && fee < 0.0005m)
             {
                 dialogResult = MessageBox.Show("Fee is too low. Confirming transaction will take very long time.", "Continue?", MessageBoxButtons.YesNo);
