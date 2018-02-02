@@ -73,7 +73,10 @@ namespace BitcoinWallet.Class
             {
                 foreach (var operation in balance.Operations)
                 {
-                    unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
+                    if (operation.Confirmations > 5)
+                    {
+                        unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
+                    }
                 }
                 current += unspentCoins.Sum(x => x.Amount.ToDecimal(MoneyUnit.BTC));
             }

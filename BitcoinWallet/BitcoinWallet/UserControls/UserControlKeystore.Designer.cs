@@ -54,6 +54,7 @@
             this.inputOwnedSeed.TabIndex = 6;
             this.inputOwnedSeed.Text = "I already have a seed";
             this.inputOwnedSeed.UseVisualStyleBackColor = true;
+            this.inputOwnedSeed.Click += new System.EventHandler(this.inputOwnedSeed_Click);
             // 
             // inputCreateNewSeed
             // 
@@ -66,6 +67,7 @@
             this.inputCreateNewSeed.TabStop = true;
             this.inputCreateNewSeed.Text = "Create a new seed";
             this.inputCreateNewSeed.UseVisualStyleBackColor = true;
+            this.inputCreateNewSeed.Click += new System.EventHandler(this.inputCreateNewSeed_Click);
             // 
             // label1
             // 

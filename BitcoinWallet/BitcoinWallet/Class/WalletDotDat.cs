@@ -40,6 +40,15 @@ namespace BitcoinWallet.Class
         {
             return bitcoinSecrets.ToArray();
         }
+        public List<AddressValue> getAddresses()
+        {
+            List<AddressValue> adressValues = new List<AddressValue>();
+            for(int i=0;i<bitcoinSecrets.Count;i++)
+            {
+                adressValues.Add(new AddressValue(bitcoinSecrets[i].GetAddress().ToString()));
+            }
+            return adressValues;
+        }
         override
         public string ToString()
         {
@@ -63,4 +72,13 @@ namespace BitcoinWallet.Class
 
     }
     */
+    public class AddressValue
+    {
+        public AddressValue(string adress)
+        {
+            _address = adress;
+        }
+        public string Address { get { return _address; } set { _address = value; } }
+        string _address;
+    }
 }

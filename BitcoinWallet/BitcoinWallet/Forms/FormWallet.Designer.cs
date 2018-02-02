@@ -30,6 +30,8 @@
         {
             this.inputTabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.outputBalance = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.outputTranstactionHistory = new System.Windows.Forms.DataGridView();
             this.Confirmations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,8 +39,7 @@
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.outputBalance = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.inputTabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputTranstactionHistory)).BeginInit();
@@ -52,6 +53,7 @@
             this.inputTabs.Controls.Add(this.tabPage1);
             this.inputTabs.Controls.Add(this.tabPage2);
             this.inputTabs.Controls.Add(this.tabPage3);
+            this.inputTabs.Controls.Add(this.tabPage4);
             this.inputTabs.Location = new System.Drawing.Point(1, 2);
             this.inputTabs.Name = "inputTabs";
             this.inputTabs.SelectedIndex = 0;
@@ -71,6 +73,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "History";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // outputBalance
+            // 
+            this.outputBalance.AutoSize = true;
+            this.outputBalance.Location = new System.Drawing.Point(87, 260);
+            this.outputBalance.Name = "outputBalance";
+            this.outputBalance.Size = new System.Drawing.Size(13, 13);
+            this.outputBalance.TabIndex = 2;
+            this.outputBalance.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 260);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Balance (mBTC):";
             // 
             // outputTranstactionHistory
             // 
@@ -134,23 +154,14 @@
             this.tabPage3.Text = "Receive";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // tabPage4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 260);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Balance (mBTC):";
-            // 
-            // outputBalance
-            // 
-            this.outputBalance.AutoSize = true;
-            this.outputBalance.Location = new System.Drawing.Point(87, 260);
-            this.outputBalance.Name = "outputBalance";
-            this.outputBalance.Size = new System.Drawing.Size(13, 13);
-            this.outputBalance.TabIndex = 2;
-            this.outputBalance.Text = "0";
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(571, 278);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Addresses";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // FormWallet
             // 
@@ -184,5 +195,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         private System.Windows.Forms.Label outputBalance;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }
