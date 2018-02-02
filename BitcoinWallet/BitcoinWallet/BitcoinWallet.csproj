@@ -129,6 +129,12 @@
     <Compile Include="UserControls\UserControlReceive.Designer.cs">
       <DependentUpon>UserControlReceive.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UserControlRestore.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlRestore.Designer.cs">
+      <DependentUpon>UserControlRestore.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UserControlSeedConfirmation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -176,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlReceive.resx">
       <DependentUpon>UserControlReceive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlRestore.resx">
+      <DependentUpon>UserControlRestore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlSeedConfirmation.resx">
       <DependentUpon>UserControlSeedConfirmation.cs</DependentUpon>

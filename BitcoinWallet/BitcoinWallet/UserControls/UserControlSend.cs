@@ -16,31 +16,60 @@ namespace BitcoinWallet.UserControls
 
         private void inputSend_Click(object sender, EventArgs e)
         {
-            //remake to work with unecrypted wallet
-            MyFile myFile = new MyFile();
-            string text = myFile.ReadFile(path);
-            WalletDotDat walletDotDat = new WalletDotDat();
-            if (text.Split(' ').Length < 12)
+            decimal amount, fee;
+            string destination=inputPayTo.Text;
+            bool adressValid, amountValid, feeValid;
+            DialogResult dialogResult=DialogResult.Yes;
+            adressValid = Wallet.checkAdress(destination);
+            amountValid = decimal.TryParse(inputAmount.Text, out amount);
+            feeValid = decimal.TryParse(inputFee.Text, out fee);
+
+            if (feeValid)fee= fee / 1000m;
+            MessageBox.Show(fee.ToString());
+            if (feeValid && fee < 0.0005m)
             {
-                Aes aes = new Aes();
-                walletDotDat.FromString(aes.Decrypt(text, password));
+                dialogResult = MessageBox.Show("Fee is too low. Confirming transaction will take very long time.", "Continue?", MessageBoxButtons.YesNo);
+            }
+            if (adressValid&&amountValid&&feeValid&&dialogResult==DialogResult.Yes)
+            {
+                MyFile myFile = new MyFile();
+                string text = myFile.ReadFile(path);
+                WalletDotDat walletDotDat = new WalletDotDat();
+                if (text.Split(' ').Length < 12)
+                {
+                    Aes aes = new Aes();
+                    walletDotDat.FromString(aes.Decrypt(text, password));
+                }
+                else
+                {
+                    walletDotDat.FromString(text);
+                }
+                BitcoinWallet.Class.Transaction transaction = new BitcoinWallet.Class.Transaction(walletDotDat.getSecrets(), fee, amount, inputPayTo.Text);
+                transaction.getInputs();
+                try
+                {
+                    transaction.Send();
+                }
+                catch (NBitcoin.NotEnoughFundsException exc)
+                {
+                    decimal missing = decimal.Parse(exc.Missing.ToString())*1000m;
+                    MessageBox.Show("Not enough funds. Missing: "+missing+"mBTC");
+                }
+                //System.Windows.Forms.Clipboard.SetText(transaction.getHexTransaction());
+                MessageBox.Show(transaction.ToString());
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                inputFee.Text = "0.5";
             }
             else
             {
-                walletDotDat.FromString(text);
+                string errors = "";
+                if (!adressValid) errors += "Adress is not in correct format!"+Environment.NewLine;
+                if (!amountValid) errors += "Amount is not in correct format!"+Environment.NewLine;
+                if (!feeValid) errors += "Fee is not in correct format!" + Environment.NewLine;
+                MessageBox.Show(errors);
             }
-            BitcoinWallet.Class.Transaction transaction = new BitcoinWallet.Class.Transaction(walletDotDat.getSecrets(), 0.0005m, Decimal.Parse(inputAmount.Text), inputPayTo.Text);
-            transaction.getInputs();
-            try
-            {
-                transaction.Send();
-            }
-            catch(Exception exc)
-            {
-                MessageBox.Show(exc.ToString());
-            }
-            System.Windows.Forms.Clipboard.SetText(transaction.getHexTransaction());
-            MessageBox.Show(transaction.ToString());
         }
 
         private void inputAllAvailable_Click(object sender, EventArgs e)
@@ -57,7 +86,7 @@ namespace BitcoinWallet.UserControls
             {
                 walletDotDat.FromString(text);
             }
-            inputAmount.Text=((Wallet.GetWalletBalance(walletDotDat.getSecrets(), true)*1000m).ToString());
+            inputAmount.Text=((Wallet.GetConfirmedWalletBalance(walletDotDat.getSecrets(), true)*1000m).ToString());
         }
 
         private void clearButton_Click(object sender, EventArgs e)
@@ -65,7 +94,7 @@ namespace BitcoinWallet.UserControls
             inputPayTo.Text = "";
             inputDescription.Text = "";
             inputAmount.Text = "";
-            inputFee.Value = 1;
+            inputFee.Text = "";
         }
     }
 }

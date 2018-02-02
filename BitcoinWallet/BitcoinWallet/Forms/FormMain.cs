@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BitcoinWallet.Class;
 using BitcoinWallet.UserControls;
+using NBitcoin;
 
 namespace BitcoinWallet.Forms
 {
@@ -19,6 +20,7 @@ namespace BitcoinWallet.Forms
         UserControlSeedGeneration ucSeedGeneration;
         UserControlSeedConfirmation ucSeedConfirmation;
         UserControlWalletEncryption ucWalletEncryption;
+        UserControlRestore ucRestore;
         string outputSeed;
         public FormMain()
         {
@@ -28,6 +30,7 @@ namespace BitcoinWallet.Forms
             ucSeedGeneration = new UserControlSeedGeneration();
             ucSeedConfirmation = new UserControlSeedConfirmation();
             ucWalletEncryption = new UserControlWalletEncryption();
+            ucRestore = new UserControlRestore();
             LoadUserControlChooseYourWallet();
         }
         private void LoadUserControlChooseYourWallet()
@@ -67,6 +70,13 @@ namespace BitcoinWallet.Forms
             outputPanel.Controls.Add(ucWalletEncryption);
             ucWalletEncryption.Dock = DockStyle.Fill;
             ucWalletEncryption.BringToFront();
+        }
+        private void LoadUserControlRestore()
+        {
+            outputPanel.Controls.Clear();
+            outputPanel.Controls.Add(ucRestore);
+            ucRestore.Dock = DockStyle.Fill;
+            ucRestore.BringToFront();
         }
         private void LoadFormWallet()
         {
@@ -112,7 +122,60 @@ namespace BitcoinWallet.Forms
             }
             else if(outputPanel.Controls.Contains(ucKeystore))
             {
-                LoadUserControlSeedGeneration();
+                if (ucKeystore.selected == "new")
+                {
+                    LoadUserControlSeedGeneration();
+                }
+                else if (ucKeystore.selected == "restore")
+                {
+                    LoadUserControlRestore();
+                }
+            }
+            else if (outputPanel.Controls.Contains(ucRestore))
+            {
+                bool isValidSeed = false;
+                ExtKey extKey = null;
+                List<BitcoinSecret> bs;
+                if (ucRestore.phrase != "")
+                {
+                    try
+                    {
+                        extKey = Wallet.generateMasterAdress(ucRestore.phrase);
+                        isValidSeed = true;
+                    }
+                    catch
+                    {
+                        isValidSeed = false;
+                        MessageBox.Show("Seed is invalid!");
+                    }
+                    WalletDotDat walletDotDat = new WalletDotDat();
+                    if (isValidSeed)
+                    {
+                        MyFile myFile = new MyFile();
+                        walletDotDat.mnemonics = ucRestore.phrase;
+                        bs = Wallet.Restore(extKey);
+                        foreach (BitcoinSecret bits in bs)
+                        {
+                            walletDotDat.addPrivateKey(bits);
+                        }
+                        if (ucRestore.password == "")
+                        {
+                            myFile.SaveUnecryptedFile(walletDotDat.ToString(), ucChooseYourWallet.FilePath);
+                        }
+                        else
+                        {
+                            myFile.SaveEncryptedFile(walletDotDat.ToString(), ucRestore.password, ucChooseYourWallet.FilePath);
+                        }
+                        FormWallet formWallet = new FormWallet(ucRestore.password, ucChooseYourWallet.FilePath);
+                        this.Hide();
+                        formWallet.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Seed is invalid!");
+                }
+
             }
             else if(outputPanel.Controls.Contains(ucSeedGeneration))
             {

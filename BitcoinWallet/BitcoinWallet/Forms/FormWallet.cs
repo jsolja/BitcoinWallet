@@ -48,7 +48,8 @@ namespace BitcoinWallet.Forms
             {
                 walletDotDat.FromString(text);
             }
-            outputBalance.Text = ((Wallet.GetWalletBalance(walletDotDat.getSecrets(), true) * 1000m).ToString());
+            outputBalance.Text = "Confirmed: "+((Wallet.GetConfirmedWalletBalance(walletDotDat.getSecrets(), true) * 1000m).ToString())
+                                +" Unconfirmed: "+ ((Wallet.GetUnconfirmedWalletBalance(walletDotDat.getSecrets(), true) * 1000m).ToString());
         }
 
         private void inputTabs_SelectedIndexChanged(object sender, EventArgs e)
@@ -68,6 +69,9 @@ namespace BitcoinWallet.Forms
             UserControlReceive userControlReceive = new UserControlReceive(password, path);
             userControlReceive.Dock = DockStyle.Fill;
             tabPage3.Controls.Add(userControlReceive);
+            UserControlAdresses userControlAdresses = new UserControlAdresses(password, path);
+            userControlAdresses.Dock = DockStyle.Fill;
+            tabPage4.Controls.Add(userControlAdresses);
             GetBalance();
             ShowHistory();
         }
@@ -119,11 +123,11 @@ namespace BitcoinWallet.Forms
                             outputTranstactionHistory.Rows[n].Cells[1].Value = transaction["firstSeen"];
                             if (int.Parse(transaction["confirmations"].ToString()) < 6)
                             {
-                                outputTranstactionHistory.Rows[n].Cells[2].Value = "Unconfirmed";
+                                outputTranstactionHistory.Rows[n].Cells[2].Value = "Unconfirmed transaction";
                             }
                             else
                             {
-                                outputTranstactionHistory.Rows[n].Cells[2].Value = "Confirmed";
+                                outputTranstactionHistory.Rows[n].Cells[2].Value = "Confirmed transaction";
                             }
                             outputTranstactionHistory.Rows[n].Cells[3].Value = decimal.Parse(transaction["amount"].ToString()) * 0.00000001m;
                             n++;

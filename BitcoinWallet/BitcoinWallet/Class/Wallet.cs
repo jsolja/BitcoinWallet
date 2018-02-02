@@ -73,7 +73,6 @@ namespace BitcoinWallet.Class
             else Seed = new Mnemonic(seed, Wordlist.English);
             ExtKey masterKey = new ExtKey();
             masterKey = Seed.DeriveExtKey();
-
             return masterKey.GetWif(Network.TestNet);
         }
         public static BitcoinSecret generateDerivedAdress(ExtKey masterKey, int i)
@@ -94,7 +93,30 @@ namespace BitcoinWallet.Class
                 return false;
             }
         }
-        public static decimal GetWalletBalance(BitcoinSecret[] bitcoinSecrets, bool isUnspentOnly = true)
+        public static List<BitcoinSecret> Restore(ExtKey extKey)
+        {
+            List<BitcoinSecret> bitcoinSecrets = new List<BitcoinSecret>();
+            int unused = 0;
+            for(int i = 0; i < 1000; i++)
+            {
+                bitcoinSecrets.Add(generateDerivedAdress(extKey, i));
+                if (!IsUsedBefore(bitcoinSecrets[i].GetAddress())) unused++;
+                else { unused = 0; }
+                if (unused == 10) break;
+            }
+            if (bitcoinSecrets.Count == 10)
+            {
+                return null;
+            }
+            else
+            {
+                int index = bitcoinSecrets.Count;
+                index -= 10;
+                bitcoinSecrets.RemoveRange(index, 10);
+                return bitcoinSecrets;
+            }
+        }
+        public static decimal GetConfirmedWalletBalance(BitcoinSecret[] bitcoinSecrets, bool isUnspentOnly = true)
         {
             decimal walletBalance = 0;
             QBitNinjaClient client = new QBitNinjaClient(Network.TestNet);
@@ -106,7 +128,40 @@ namespace BitcoinWallet.Class
                     var unspentCoins = new List<Coin>();
                     foreach (var operation in balance.Operations)
                     {
-                        unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
+                        if (operation.Confirmations > 5)unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
+                    }
+                    walletBalance += unspentCoins.Sum(x => x.Amount.ToDecimal(MoneyUnit.BTC));
+                }
+            }
+            return walletBalance;
+        }
+        public static bool IsUsedBefore(BitcoinAddress bitcoinAddress)
+        {
+            QBitNinjaClient client = new QBitNinjaClient(Network.TestNet);
+            var balance = client.GetBalance(bitcoinAddress).Result;
+            if (balance.Operations.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public static decimal GetUnconfirmedWalletBalance(BitcoinSecret[] bitcoinSecrets, bool isUnspentOnly = true)
+        {
+            decimal walletBalance = 0;
+            QBitNinjaClient client = new QBitNinjaClient(Network.TestNet);
+            foreach (BitcoinSecret bs in bitcoinSecrets)
+            {
+                var balance = client.GetBalance(bs.GetAddress(), isUnspentOnly).Result;
+                if (balance.Operations.Count > 0)
+                {
+                    var unspentCoins = new List<Coin>();
+                    foreach (var operation in balance.Operations)
+                    {
+                        if(operation.Confirmations<=5)unspentCoins.AddRange(operation.ReceivedCoins.Select(coin => coin as Coin));
                     }
                     walletBalance += unspentCoins.Sum(x => x.Amount.ToDecimal(MoneyUnit.BTC));
                 }
