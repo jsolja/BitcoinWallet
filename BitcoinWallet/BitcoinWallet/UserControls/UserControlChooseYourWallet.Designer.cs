@@ -59,7 +59,7 @@
             // 
             // inputChooseWallet
             // 
-            this.inputChooseWallet.Location = new System.Drawing.Point(314, 35);
+            this.inputChooseWallet.Location = new System.Drawing.Point(417, 35);
             this.inputChooseWallet.Name = "inputChooseWallet";
             this.inputChooseWallet.Size = new System.Drawing.Size(75, 23);
             this.inputChooseWallet.TabIndex = 8;
@@ -80,7 +80,7 @@
             // 
             this.inputChooseWalletText.Location = new System.Drawing.Point(58, 37);
             this.inputChooseWalletText.Name = "inputChooseWalletText";
-            this.inputChooseWalletText.Size = new System.Drawing.Size(250, 20);
+            this.inputChooseWalletText.Size = new System.Drawing.Size(353, 20);
             this.inputChooseWalletText.TabIndex = 7;
             this.inputChooseWalletText.Text = "default_wallet.dat";
             this.inputChooseWalletText.TextChanged += new System.EventHandler(this.inputChooseWalletText_TextChanged);
@@ -126,7 +126,7 @@
             this.Controls.Add(this.inputChooseWalletText);
             this.Controls.Add(this.label1);
             this.Name = "UserControlChooseYourWallet";
-            this.Size = new System.Drawing.Size(404, 345);
+            this.Size = new System.Drawing.Size(495, 345);
             this.ResumeLayout(false);
             this.PerformLayout();
 

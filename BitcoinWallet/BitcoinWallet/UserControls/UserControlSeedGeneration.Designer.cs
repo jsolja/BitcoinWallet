@@ -53,7 +53,7 @@
             this.outputSeed.Multiline = true;
             this.outputSeed.Name = "outputSeed";
             this.outputSeed.ReadOnly = true;
-            this.outputSeed.Size = new System.Drawing.Size(373, 63);
+            this.outputSeed.Size = new System.Drawing.Size(463, 63);
             this.outputSeed.TabIndex = 6;
             // 
             // label2
@@ -61,19 +61,19 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 115);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(335, 13);
+            this.label2.Size = new System.Drawing.Size(443, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Save these 12 words on paper in exact order. This seed will allow you";
+            this.label2.Text = "Save these 12 words on paper in exact order. This seed will allow you to recover " +
+    "your bitcoin";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(13, 137);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(375, 13);
+            this.label3.Size = new System.Drawing.Size(267, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = " to recover your bitcoin in case you lose .dat file, password or computer failure" +
-    ".";
+            this.label3.Text = " in case you lose .dat file, password or computer failure.";
             // 
             // label4
             // 
@@ -125,7 +125,7 @@
             this.Controls.Add(this.outputSeed);
             this.Controls.Add(this.label1);
             this.Name = "UserControlSeedGeneration";
-            this.Size = new System.Drawing.Size(404, 345);
+            this.Size = new System.Drawing.Size(495, 345);
             this.ResumeLayout(false);
             this.PerformLayout();
 

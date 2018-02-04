@@ -90,7 +90,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.inputPhrase);
             this.Name = "UserControlRestore";
-            this.Size = new System.Drawing.Size(411, 323);
+            this.Size = new System.Drawing.Size(495, 345);
             this.Load += new System.EventHandler(this.UserControlRestore_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

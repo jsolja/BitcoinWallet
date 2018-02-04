@@ -37,7 +37,7 @@
             // 
             // inputNext
             // 
-            this.inputNext.Location = new System.Drawing.Point(404, 364);
+            this.inputNext.Location = new System.Drawing.Point(513, 364);
             this.inputNext.Name = "inputNext";
             this.inputNext.Size = new System.Drawing.Size(75, 23);
             this.inputNext.TabIndex = 0;
@@ -47,7 +47,7 @@
             // 
             // inputCancelOrBack
             // 
-            this.inputCancelOrBack.Location = new System.Drawing.Point(323, 364);
+            this.inputCancelOrBack.Location = new System.Drawing.Point(432, 364);
             this.inputCancelOrBack.Name = "inputCancelOrBack";
             this.inputCancelOrBack.Size = new System.Drawing.Size(75, 23);
             this.inputCancelOrBack.TabIndex = 6;
@@ -60,7 +60,7 @@
             this.outputPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.outputPanel.Location = new System.Drawing.Point(75, 12);
             this.outputPanel.Name = "outputPanel";
-            this.outputPanel.Size = new System.Drawing.Size(404, 345);
+            this.outputPanel.Size = new System.Drawing.Size(513, 345);
             this.outputPanel.TabIndex = 7;
             // 
             // pictureBox1
@@ -73,16 +73,16 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
-            // FrmMain
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 403);
+            this.ClientSize = new System.Drawing.Size(600, 398);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.outputPanel);
             this.Controls.Add(this.inputCancelOrBack);
             this.Controls.Add(this.inputNext);
-            this.Name = "FrmMain";
+            this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BitcoinWallet";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

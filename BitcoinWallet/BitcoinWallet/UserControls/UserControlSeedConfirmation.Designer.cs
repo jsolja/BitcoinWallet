@@ -47,10 +47,10 @@
             // 
             // inputSeed
             // 
-            this.inputSeed.Location = new System.Drawing.Point(16, 118);
+            this.inputSeed.Location = new System.Drawing.Point(16, 123);
             this.inputSeed.Multiline = true;
             this.inputSeed.Name = "inputSeed";
-            this.inputSeed.Size = new System.Drawing.Size(373, 63);
+            this.inputSeed.Size = new System.Drawing.Size(379, 63);
             this.inputSeed.TabIndex = 7;
             // 
             // label2
@@ -58,19 +58,19 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(380, 13);
+            this.label2.Size = new System.Drawing.Size(451, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Your seed is important! If you lose your seed, you won\'t be able to recover your " +
-    "";
+    "wallet and your";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(13, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(226, 13);
+            this.label3.Size = new System.Drawing.Size(152, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "wallet and your money will be permanently lost.";
+            this.label3.Text = "money will be permanently lost.";
             // 
             // label4
             // 
@@ -91,7 +91,7 @@
             this.Controls.Add(this.inputSeed);
             this.Controls.Add(this.label1);
             this.Name = "UserControlSeedConfirmation";
-            this.Size = new System.Drawing.Size(404, 345);
+            this.Size = new System.Drawing.Size(495, 345);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -90,7 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Aes.cs" />
-    <Compile Include="Class\JsonResult.cs" />
     <Compile Include="Class\Transaction.cs" />
     <Compile Include="Class\MyFile.cs" />
     <Compile Include="Class\WalletDotDat.cs" />
