@@ -273,7 +273,6 @@ namespace BitcoinWallet.Forms
                 catch(Exception e)
                 {
                     MessageBox.Show("Incorrect password.", "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show(e.ToString());
                 }
             }
         }

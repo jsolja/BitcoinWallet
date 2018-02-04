@@ -63,6 +63,8 @@ namespace BitcoinWallet.Class
                 {
                     outputFileLabel.Text = "Press 'Next' to open this file.";
                     outputLabelNext.Text = "";
+                    outputLabelPassword.Visible = false;
+                    inputPassword.Visible = false;
                     Encrypted = false;
                 }
                 Availability = false;

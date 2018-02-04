@@ -98,7 +98,7 @@
             this.Controls.Add(this.inputCreateNewSeed);
             this.Controls.Add(this.label1);
             this.Name = "UserControlKeystore";
-            this.Size = new System.Drawing.Size(404, 345);
+            this.Size = new System.Drawing.Size(495, 345);
             this.ResumeLayout(false);
             this.PerformLayout();
 

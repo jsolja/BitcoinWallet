@@ -119,7 +119,14 @@ namespace BitcoinWallet.Forms
                         foreach (var transaction in json["operations"])
                         {
                             outputTranstactionHistory.Rows.Add();
-                            outputTranstactionHistory.Rows[n].Cells[0].Value = transaction["confirmations"];
+                            if(int.Parse(transaction["confirmations"].ToString()) > 6)
+                            {
+                                outputTranstactionHistory.Rows[n].Cells[0].Value = "6+";
+                            }
+                            else
+                            {
+                                outputTranstactionHistory.Rows[n].Cells[0].Value = transaction["confirmations"];
+                            }
                             outputTranstactionHistory.Rows[n].Cells[1].Value = transaction["firstSeen"];
                             if (int.Parse(transaction["confirmations"].ToString()) < 6)
                             {

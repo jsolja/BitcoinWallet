@@ -53,10 +53,9 @@ namespace BitcoinWallet.UserControls
                 catch (NBitcoin.NotEnoughFundsException exc)
                 {
                     decimal missing = decimal.Parse(exc.Missing.ToString())*1000m;
-                    MessageBox.Show("Not enough funds. Missing: "+missing+"mBTC");
+                    MessageBox.Show("Not enough funds. Missing: " + missing + "mBTC", "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 //System.Windows.Forms.Clipboard.SetText(transaction.getHexTransaction());
-                MessageBox.Show(transaction.ToString());
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -68,7 +67,7 @@ namespace BitcoinWallet.UserControls
                 if (!adressValid) errors += "Adress is not in correct format!"+Environment.NewLine;
                 if (!amountValid) errors += "Amount is not in correct format!"+Environment.NewLine;
                 if (!feeValid) errors += "Fee is not in correct format!" + Environment.NewLine;
-                MessageBox.Show(errors);
+                MessageBox.Show(errors, "BitcoinWallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
