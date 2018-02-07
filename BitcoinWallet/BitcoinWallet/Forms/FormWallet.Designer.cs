@@ -30,23 +30,23 @@
         {
             this.inputTabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.outputBalance = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.outputTranstactionHistory = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Confirmations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.outputBalance = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.inputFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputNewRestoreMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.inputQuitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.walletToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.seedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,26 +84,6 @@
             this.tabPage1.Text = "History";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // outputBalance
-            // 
-            this.outputBalance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.outputBalance.AutoSize = true;
-            this.outputBalance.Location = new System.Drawing.Point(89, 389);
-            this.outputBalance.Name = "outputBalance";
-            this.outputBalance.Size = new System.Drawing.Size(13, 13);
-            this.outputBalance.TabIndex = 2;
-            this.outputBalance.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 389);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Balance (mBTC):";
-            // 
             // outputTranstactionHistory
             // 
             this.outputTranstactionHistory.AllowUserToAddRows = false;
@@ -124,86 +104,6 @@
             this.outputTranstactionHistory.ReadOnly = true;
             this.outputTranstactionHistory.Size = new System.Drawing.Size(828, 317);
             this.outputTranstactionHistory.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(835, 321);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Send";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(571, 278);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Receive";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(571, 278);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Addresses";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(829, 24);
-            this.menuStrip1.TabIndex = 3;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // menuStrip2
-            // 
-            this.menuStrip2.AutoSize = false;
-            this.menuStrip2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.menuStrip2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.walletToolStripMenuItem});
-            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.menuStrip2.Size = new System.Drawing.Size(846, 19);
-            this.menuStrip2.TabIndex = 1;
-            this.menuStrip2.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newRestoreToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.quitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(27, 15);
-            this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // newRestoreToolStripMenuItem
-            // 
-            this.newRestoreToolStripMenuItem.Name = "newRestoreToolStripMenuItem";
-            this.newRestoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newRestoreToolStripMenuItem.Text = "New/Restore";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // quitToolStripMenuItem
-            // 
-            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.quitToolStripMenuItem.Text = "Quit";
             // 
             // Confirmations
             // 
@@ -238,6 +138,108 @@
             this.Balance.Name = "Balance";
             this.Balance.ReadOnly = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(829, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(835, 326);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Send";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(835, 326);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Receive";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(835, 326);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Addresses";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // outputBalance
+            // 
+            this.outputBalance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.outputBalance.AutoSize = true;
+            this.outputBalance.Location = new System.Drawing.Point(51, 389);
+            this.outputBalance.Name = "outputBalance";
+            this.outputBalance.Size = new System.Drawing.Size(13, 13);
+            this.outputBalance.TabIndex = 2;
+            this.outputBalance.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 389);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Balance:";
+            // 
+            // menuStrip2
+            // 
+            this.menuStrip2.AutoSize = false;
+            this.menuStrip2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.menuStrip2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inputFileMenuItem,
+            this.walletToolStripMenuItem});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.menuStrip2.Size = new System.Drawing.Size(846, 19);
+            this.menuStrip2.TabIndex = 1;
+            this.menuStrip2.Text = "menuStrip1";
+            // 
+            // inputFileMenuItem
+            // 
+            this.inputFileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inputNewRestoreMenuItem,
+            this.toolStripSeparator1,
+            this.inputQuitMenuItem});
+            this.inputFileMenuItem.Name = "inputFileMenuItem";
+            this.inputFileMenuItem.Padding = new System.Windows.Forms.Padding(0);
+            this.inputFileMenuItem.Size = new System.Drawing.Size(27, 15);
+            this.inputFileMenuItem.Text = "File";
+            this.inputFileMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // inputNewRestoreMenuItem
+            // 
+            this.inputNewRestoreMenuItem.Name = "inputNewRestoreMenuItem";
+            this.inputNewRestoreMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.inputNewRestoreMenuItem.Text = "New/Restore";
+            this.inputNewRestoreMenuItem.Click += new System.EventHandler(this.inputNewRestoreMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(135, 6);
+            // 
+            // inputQuitMenuItem
+            // 
+            this.inputQuitMenuItem.Name = "inputQuitMenuItem";
+            this.inputQuitMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.inputQuitMenuItem.Text = "Quit";
+            this.inputQuitMenuItem.Click += new System.EventHandler(this.inputQuitMenuItem_Click);
+            // 
             // walletToolStripMenuItem
             // 
             this.walletToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -251,13 +253,13 @@
             // passwordToolStripMenuItem
             // 
             this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
-            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.passwordToolStripMenuItem.Text = "Password";
             // 
             // seedToolStripMenuItem
             // 
             this.seedToolStripMenuItem.Name = "seedToolStripMenuItem";
-            this.seedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.seedToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.seedToolStripMenuItem.Text = "Seed";
             // 
             // FormWallet
@@ -300,10 +302,10 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newRestoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputNewRestoreMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputQuitMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Confirmations;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;

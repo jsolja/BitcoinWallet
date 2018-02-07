@@ -48,8 +48,13 @@ namespace BitcoinWallet.Forms
             {
                 walletDotDat.FromString(text);
             }
-            outputBalance.Text = "Confirmed: "+((Wallet.GetConfirmedWalletBalance(walletDotDat.getSecrets(), true) * 1000m).ToString())
-                                +" Unconfirmed: "+ ((Wallet.GetUnconfirmedWalletBalance(walletDotDat.getSecrets(), true) * 1000m).ToString());
+
+            outputBalance.Text = ((Wallet.GetConfirmedWalletBalance(walletDotDat.getSecrets(), true)).ToString()) + " BTC";
+            if(((Wallet.GetUnconfirmedWalletBalance(walletDotDat.getSecrets(), true)) > 0))
+            {
+                outputBalance.Text += " ["+ ((Wallet.GetUnconfirmedWalletBalance(walletDotDat.getSecrets(), true)).ToString()) + " unconfirmed]";
+            }
+                                
         }
 
         private void inputTabs_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,6 +133,7 @@ namespace BitcoinWallet.Forms
                                 outputTranstactionHistory.Rows[n].Cells[0].Value = transaction["confirmations"];
                             }
                             outputTranstactionHistory.Rows[n].Cells[1].Value = transaction["firstSeen"];
+
                             if (int.Parse(transaction["confirmations"].ToString()) < 6)
                             {
                                 outputTranstactionHistory.Rows[n].Cells[2].Value = "Unconfirmed transaction";
@@ -142,6 +148,31 @@ namespace BitcoinWallet.Forms
                     }
                 }
             }
+            if(outputTranstactionHistory.Rows.Count != 0)
+            {
+                outputTranstactionHistory.Sort(outputTranstactionHistory.Columns[1], ListSortDirection.Descending);
+                outputTranstactionHistory.Rows[outputTranstactionHistory.Rows.Count - 1].Cells[4].Value = outputTranstactionHistory.Rows[outputTranstactionHistory.Rows.Count - 1].Cells[3].Value;
+                for (int j = outputTranstactionHistory.Rows.Count - 2; j >= 0; j--)
+                {
+                    outputTranstactionHistory.Rows[j].Cells[4].Value = decimal.Parse(outputTranstactionHistory.Rows[j + 1].Cells[4].Value.ToString()) + decimal.Parse(outputTranstactionHistory.Rows[j].Cells[3].Value.ToString());
+                }
+            }
+        }
+
+        private void inputNewRestoreMenuItem_Click(object sender, EventArgs e)
+        {
+            FormMain formMain = new FormMain();
+            formMain.ShowDialog();
+        }
+
+        private void inputQuitMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void FormWallet_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
