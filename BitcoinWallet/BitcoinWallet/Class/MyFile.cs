@@ -19,7 +19,7 @@ namespace BitcoinWallet.Class
             }
             else
             {
-                return null;
+                return "default_wallet.dat";
             }
         }
         

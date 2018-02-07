@@ -84,19 +84,19 @@ namespace BitcoinWallet.Forms
             {
                 FormWallet formWallet = new FormWallet(ucChooseYourWallet.Password, ucChooseYourWallet.FilePath);
                 this.Hide();
-                formWallet.ShowDialog();
+                formWallet.Show();
             }
             else if(!string.IsNullOrWhiteSpace(ucWalletEncryption.GetPassword))
             {
                 FormWallet formWallet = new FormWallet(ucWalletEncryption.GetPassword, ucChooseYourWallet.FilePath);
                 this.Hide();
-                formWallet.ShowDialog();
+                formWallet.Show();
             }
             else
             {
                 FormWallet formWallet = new FormWallet("", ucChooseYourWallet.FilePath);
                 this.Hide();
-                formWallet.ShowDialog();
+                formWallet.Show();
             }
         }
 
