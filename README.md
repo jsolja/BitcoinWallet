@@ -1,2 +1,2 @@
 # BitcoinWallet
-Lightweight (SPV) bitcoin wallet that I'm currently developing in Visual Studio 2017 C# (BIP-32, BIP-39 compliant)
+Lightweight (SPV) bitcoin wallet that I'm currently developing in Visual Studio C# (BIP-32, BIP-39 compliant)
